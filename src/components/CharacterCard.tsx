@@ -1,37 +1,34 @@
-import React, { useState } from 'react';
-import { fetchCharacter, fetchHomeworld } from '../services/swapiService';
-import CharacterModal from './CharacterModal';
+import { useState } from "react";
+import CharacterDetails from "./CharacterDetails";
 
-const speciesColorMap = {
-  'Human': 'lightblue',
-  'Droid': 'lightgrey',
-  // Add more species and their corresponding colors here
-};
+const CharacterCard = ({ character }: { character: any }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const CharacterCard = ({ character }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [characterDetails, setCharacterDetails] = useState(null);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
 
-  const handleClick = () => {
-    fetchCharacter(character.url)
-      .then(data => {
-        fetchHomeworld(data.homeworld)
-          .then(homeworld => {
-            setCharacterDetails({ ...data, homeworld });
-            setShowModal(true);
-          });
-      });
+  const handleCloseModal = () => {
+    console.log("close modal");
+    setIsModalOpen(false);
   };
 
   return (
-    <div 
-      className="character-card" 
-      style={{ backgroundColor: speciesColorMap[character.species] }}
-      onClick={handleClick}
+    <div
+      className={`character-card ${character.species}`}
+      onClick={handleOpenModal}
     >
+      <img
+        src={`https://picsum.photos/id/${character.id}/200/300`}
+        alt={character.name}
+      />
       <h2>{character.name}</h2>
-      <img src={`https://picsum.photos/200?random=${character.name}`} alt={character.name} />
-      {showModal && <CharacterModal character={characterDetails} onClose={() => setShowModal(false)} />}
+      {isModalOpen && (
+        <CharacterDetails
+          character={character}
+          onClose={() => handleCloseModal()}
+        />
+      )}
     </div>
   );
 };

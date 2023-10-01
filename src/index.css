@@ -59,17 +59,58 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.character-card {
+  border: 1px solid #646cff;
+  padding: 1em;
+  margin: 1em;
+  transition: transform 0.3s;
+}
+.character-card:hover {
+  transform: scale(1.05);
+}
+.character-card img {
+  width: 100%;
+  height: auto;
+}
+.character-card h2 {
+  margin-top: 0.5em;
+}
+
+.character-details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.character-details-modal div {
+  background-color: #ffffff;
+  padding: 2em;
+  max-width: 500px;
+  width: 90%;
+}
+.character-details-modal h2 {
+  margin-bottom: 1em;
+}
+.character-details-modal p {
+  margin-bottom: 0.5em;
+}
+
+.character-card.human {
+  background-color: #f9f9f9;
+}
+.character-card.droid {
+  background-color: #1a1a1a;
+}
+.character-card.wookie {
+  background-color: #646cff;
+}
+.character-card.ewok {
+  background-color: #747bff;
 }
 
 .character-card {

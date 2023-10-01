@@ -1,21 +1,28 @@
 import axios from 'axios';
 
-const SWAPI_BASE_URL = 'https://swapi.dev/api';
+class SwapiService {
+  private static instance: SwapiService;
+  private static BASE_URL = 'https://swapi.dev/api';
 
-export const fetchCharactersPage = (page: number) => {
-  return axios.get(`${SWAPI_BASE_URL}/people/?page=${page}`)
-    .then(response => response.data)
-    .catch(error => { throw error; });
+  private constructor() {}
+
+  public static getInstance(): SwapiService {
+    if (!SwapiService.instance) {
+      SwapiService.instance = new SwapiService();
+    }
+
+    return SwapiService.instance;
+  }
+
+  public async getCharacters(page: number = 1): Promise<any> {
+    const response = await axios.get(`${SwapiService.BASE_URL}/people/?page=${page}`);
+    return response.data;
+  }
+
+  public getHomeworld(url: string): Promise<any> {
+    return axios.get(url)
+      .then(response => response.data);
+  }
 }
 
-export const fetchCharacter = (id: number) => {
-  return axios.get(`${SWAPI_BASE_URL}/people/${id}/`)
-    .then(response => response.data)
-    .catch(error => { throw error; });
-}
-
-export const fetchHomeworld = (homeworldUrl: string) => {
-  return axios.get(homeworldUrl)
-    .then(response => response.data)
-    .catch(error => { throw error; });
-}
+export default SwapiService.getInstance();
