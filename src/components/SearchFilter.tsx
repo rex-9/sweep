@@ -2,21 +2,32 @@ import { useState } from "react";
 import SwapiService from "../services/swapiService";
 import HelperService from "../services/helperService";
 
+type Props = {
+  setCharacters: Function;
+  setPages: Function;
+  setIsLoading: Function;
+  setIsError: Function;
+  setErrorMessage: Function;
+};
+
+type State = {
+  searchTerm: string;
+  filters: {
+    homeworld: string;
+    film: string;
+    species: string;
+  };
+};
+
 const SearchFilter = ({
   setCharacters,
   setPages,
   setIsLoading,
   setIsError,
   setErrorMessage,
-}: {
-  setCharacters: any;
-  setPages: any;
-  setIsLoading: any;
-  setIsError: any;
-  setErrorMessage: any;
-}) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({
+}: Props) => {
+  const [searchTerm, setSearchTerm] = useState<State["searchTerm"]>("");
+  const [filters, setFilters] = useState<State["filters"]>({
     homeworld: "",
     film: "",
     species: "",
@@ -29,7 +40,7 @@ const SearchFilter = ({
   const handleSearch = (event: any) => {
     event.preventDefault();
     setIsLoading(true);
-    SwapiService.getCharacters({ page: "", searchTerm: searchTerm })
+    SwapiService.getCharacters({ page: "", searchTerm: searchTerm, filters: filters })
       .then((data: any) => {
         setCharacters(HelperService.generateCharacterPic(data.results));
         setPages(HelperService.calcPages(data.count));
@@ -42,9 +53,9 @@ const SearchFilter = ({
       });
   };
 
-  // const handleFilterChange = (event: any) => {
-  //   setFilters({ ...filters, [event.target.name]: event.target.value });
-  // };
+  const handleFilterChange = (event: any) => {
+    setFilters({ ...filters, [event.target.name]: event.target.value });
+  };
 
   return (
     <form className="text-black flex items-center gap-4 fixed right-0 top-0">
@@ -59,7 +70,7 @@ const SearchFilter = ({
       <button type="button" className="btn text-white" onClick={handleSearch}>
         Search
       </button>
-      {/* <select
+      <select
         name="homeworld"
         value={filters.homeworld}
         onChange={handleFilterChange}
@@ -82,7 +93,7 @@ const SearchFilter = ({
         className="filters"
       >
         Options for species filter
-      </select> */}
+      </select>
     </form>
   );
 };
