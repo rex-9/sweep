@@ -14,9 +14,9 @@ class SwapiService {
     return SwapiService.instance;
   }
 
-  public getCharacters(page: number = 1): Promise<any> {
-    return axios.get(`${SwapiService.BASE_URL}/people/?page=${page}`)
-      .then(response => response.data);
+  public async getCharacters(page: number = 1): Promise<any> {
+    const response = await axios.get(`${SwapiService.BASE_URL}/people/?page=${page}`);
+    return response.data;
   }
 
   public getHomeworld(url: string): Promise<any> {

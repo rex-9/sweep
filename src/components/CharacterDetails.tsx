@@ -1,12 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import SwapiService from '../services/swapiService';
+import { useState, useEffect } from "react";
+import SwapiService from "../services/swapiService";
 
-const CharacterDetails = ({ character }) => {
-  const [homeworld, setHomeworld] = useState({});
+const CharacterDetails = ({
+  character,
+  onClose,
+}: {
+  character: any;
+  onClose: () => void;
+}) => {
+  const [homeworld, setHomeworld] = useState({
+    name: "",
+    terrain: "",
+    climate: "",
+    population: "",
+  });
 
   useEffect(() => {
-    SwapiService.getHomeworld(character.homeworld)
-      .then(data => setHomeworld(data));
+    SwapiService.getHomeworld(character.homeworld).then((data) =>
+      setHomeworld(data)
+    );
   }, [character.homeworld]);
 
   return (
@@ -21,6 +33,7 @@ const CharacterDetails = ({ character }) => {
       <p>Terrain: {homeworld.terrain}</p>
       <p>Climate: {homeworld.climate}</p>
       <p>Number of residents: {homeworld.population}</p>
+      <button onClick={() => onClose()}>Close</button>
     </div>
   );
 };

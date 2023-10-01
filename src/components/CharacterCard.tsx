@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CharacterDetails from "./CharacterDetails";
 
 const CharacterCard = ({ character }: { character: any }) => {
@@ -9,6 +9,7 @@ const CharacterCard = ({ character }: { character: any }) => {
   };
 
   const handleCloseModal = () => {
+    console.log("close modal");
     setIsModalOpen(false);
   };
 
@@ -23,7 +24,10 @@ const CharacterCard = ({ character }: { character: any }) => {
       />
       <h2>{character.name}</h2>
       {isModalOpen && (
-        <CharacterDetails character={character} onClose={handleCloseModal} />
+        <CharacterDetails
+          character={character}
+          onClose={() => handleCloseModal()}
+        />
       )}
     </div>
   );
