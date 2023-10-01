@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
 class SwapiService {
   private static instance: SwapiService;
-  private static BASE_URL = 'https://swapi.dev/api';
+  private static BASE_URL = "https://swapi.dev/api";
 
   private constructor() {}
 
@@ -15,14 +15,16 @@ class SwapiService {
   }
 
   public async getCharacters(page: number = 1): Promise<any> {
-    const response = await axios.get(`${SwapiService.BASE_URL}/people/?page=${page}`);
-    console.log('Data', response);
+    const response = await axios.get(
+      `${SwapiService.BASE_URL}/people/?page=${page}`
+    );
+    console.log("Data", response);
     return response.data;
   }
 
   public async getHomeworld(url: string): Promise<any> {
-    const data = axios.get(url).then(response => response.data);
-    console.log('Data', data);
+    const data = axios.get(url).then((response) => response.data);
+    console.log("Data", data);
     return data;
   }
 }

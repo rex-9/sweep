@@ -1,15 +1,6 @@
-import React from 'react';
-
-interface ErrorProps {
-  message: string;
-}
-
-const Error: React.FC<ErrorProps> = ({ message }) => {
-  return (
-    <div className="error">
-      <p>{message}</p>
-    </div>
-  );
+const Error = ({ message }: { message: string }) => {
+  console.log(message);
+  return <div>Error: {message}</div>;
 };
 
 export default Error;
