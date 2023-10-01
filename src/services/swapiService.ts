@@ -16,12 +16,14 @@ class SwapiService {
 
   public async getCharacters(page: number = 1): Promise<any> {
     const response = await axios.get(`${SwapiService.BASE_URL}/people/?page=${page}`);
+    console.log('Data', response);
     return response.data;
   }
 
-  public getHomeworld(url: string): Promise<any> {
-    return axios.get(url)
-      .then(response => response.data);
+  public async getHomeworld(url: string): Promise<any> {
+    const data = axios.get(url).then(response => response.data);
+    console.log('Data', data);
+    return data;
   }
 }
 

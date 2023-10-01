@@ -22,7 +22,7 @@ const CharacterDetails = ({
   }, [character.homeworld]);
 
   return (
-    <div className="character-details-modal">
+    <div className="fixed top-0 translate-x-[50%] bg-red-300">
       <h2>{character.name}</h2>
       <p>Height: {character.height}m</p>
       <p>Mass: {character.mass}kg</p>
