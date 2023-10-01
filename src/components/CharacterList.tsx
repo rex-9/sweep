@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import SwapiService from '../services/swapiService';
+import { useState, useEffect } from "react";
+import SwapiService from "../services/swapiService";
+import CharacterCard from "./CharacterCard";
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    SwapiService.getCharacters()
-      .then(data => setCharacters(data.results));
+    SwapiService.getCharacters().then((data) => setCharacters(data.results));
   }, []);
 
   return (
