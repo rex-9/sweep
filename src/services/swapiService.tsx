@@ -14,13 +14,19 @@ class SwapiService {
     return SwapiService.instance;
   }
 
-  public async getCharacters(page: number = 1): Promise<any> {
-    const response = await axios.get(
-      `${SwapiService.BASE_URL}/people/?page=${page}`
-    );
-    console.log("Data", response);
-    return response.data;
-  }
+  public async getCharacters(page: number = 1, searchTerm: string = '', filters: any = {}): Promise<any> {
+      let filterParams = '';
+      for (const key in filters) {
+        if (filters[key]) {
+          filterParams += `&${key}=${filters[key]}`;
+        }
+      }
+      const response = await axios.get(
+        `${SwapiService.BASE_URL}/people/?page=${page}&search=${searchTerm}${filterParams}`
+      );
+      console.log("Data", response);
+      return response.data;
+    }
 
   public async getHomeworld(url: string): Promise<any> {
     const data = axios.get(url).then((response) => response.data);
