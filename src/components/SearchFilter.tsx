@@ -9,14 +9,14 @@ const SearchFilter = ({
   setIsError,
   setErrorMessage,
 }: {
-  setCharacters: any;
-  setPages: any;
-  setIsLoading: any;
-  setIsError: any;
-  setErrorMessage: any;
+  setCharacters: React.Dispatch<React.SetStateAction<Character[]>>;
+  setPages: React.Dispatch<React.SetStateAction<number>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filters, setFilters] = useState<{ homeworld: string; film: string; species: string; }>({
     homeworld: "",
     film: "",
     species: "",
@@ -26,10 +26,10 @@ const SearchFilter = ({
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = (event: any) => {
+  const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
-    SwapiService.getCharacters({ page: "", searchTerm: searchTerm })
+    SwapiService.getCharacters({ page: "", searchTerm: searchTerm, filters: filters })
       .then((data: any) => {
         setCharacters(HelperService.generateCharacterPic(data.results));
         setPages(HelperService.calcPages(data.count));
@@ -42,28 +42,28 @@ const SearchFilter = ({
       });
   };
 
-  // const handleFilterChange = (event: any) => {
-  //   setFilters({ ...filters, [event.target.name]: event.target.value });
-  // };
+  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilters({ ...filters, [event.target.name]: event.target.value });
+  };
 
   return (
-    <form className="text-black flex items-center gap-4 fixed right-0 top-0">
+    <form className="text-black flex items-center gap-4 fixed right-0 top-0 p-4 bg-gray-800">
       <input
         type="text"
         name="search"
         value={searchTerm}
         onChange={handleSearchChange}
         placeholder="Search characters..."
-        className="searchBar"
+        className="searchBar p-2 rounded-md bg-white"
       />
-      <button type="button" className="btn text-white" onClick={handleSearch}>
+      <button type="button" className="btn text-white bg-blue-500 p-2 rounded-md" onClick={handleSearch}>
         Search
       </button>
-      {/* <select
+      <select
         name="homeworld"
         value={filters.homeworld}
         onChange={handleFilterChange}
-        className="filters"
+        className="filters p-2 rounded-md bg-white"
       >
         Options for homeworld filter
       </select>
@@ -71,7 +71,7 @@ const SearchFilter = ({
         name="film"
         value={filters.film}
         onChange={handleFilterChange}
-        className="filters"
+        className="filters p-2 rounded-md bg-white"
       >
         Options for film filter
       </select>
@@ -79,10 +79,10 @@ const SearchFilter = ({
         name="species"
         value={filters.species}
         onChange={handleFilterChange}
-        className="filters"
+        className="filters p-2 rounded-md bg-white"
       >
         Options for species filter
-      </select> */}
+      </select>
     </form>
   );
 };
