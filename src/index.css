@@ -71,3 +71,44 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.character-card {
+  border: 1px solid #646cff;
+  padding: 1em;
+  margin: 1em;
+  transition: transform 0.3s;
+}
+
+.character-card:hover {
+  transform: scale(1.05);
+}
+
+.character-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 2em;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.character-modal button {
+  margin-top: 1em;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 2em;
+}
