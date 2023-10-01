@@ -15,14 +15,19 @@ class SwapiService {
   }
 
   public async getCharacters(context: {
-    page: string;
-    searchTerm: string;
-  }): Promise<any> {
-    const getUrl = `${SwapiService.BASE_URL}/people/?page=${context.page}&search=${context.searchTerm}`;
-    const response = await axios.get(getUrl);
-    console.log("Got Data", response);
-    return response.data;
-  }
+      page: string;
+      searchTerm: string;
+      filters: {
+        homeworld: string;
+        film: string;
+        species: string;
+      };
+    }): Promise<any> {
+      const getUrl = `${SwapiService.BASE_URL}/people/?page=${context.page}&search=${context.searchTerm}&homeworld=${context.filters.homeworld}&film=${context.filters.film}&species=${context.filters.species}`;
+      const response = await axios.get(getUrl);
+      console.log("Got Data", response);
+      return response.data;
+    }
 
   public async getHomeworld(url: string): Promise<any> {
     const response = await axios.get(url);
