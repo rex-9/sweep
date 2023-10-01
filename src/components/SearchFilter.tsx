@@ -27,35 +27,36 @@ const SearchFilter = ({
   setErrorMessage,
 }: Props) => {
   const [searchTerm, setSearchTerm] = useState<State["searchTerm"]>("");
-  // const [filters, setFilters] = useState({
-  //   homeworld: "",
-  //   film: "",
-  //   species: "",
-  // });
-
+  const [filters, setFilters] = useState<State["filters"]>({
+    homeworld: "",
+    film: "",
+    species: "",
+  });
+  
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
-
+  
   const handleSearch = (event: any) => {
     event.preventDefault();
     setIsLoading(true);
-    SwapiService.getCharacters({ page: "", searchTerm: searchTerm })
+    SwapiService.getCharacters({ page: "", searchTerm: searchTerm, filters: filters })
       .then((data: any) => {
         setCharacters(HelperService.generateCharacterPic(data.results));
         setPages(HelperService.calcPages(data.count));
         setIsLoading(false);
         setIsError(false);
+        onSearchChange(searchTerm);
       })
       .catch((e: any) => {
         setIsError(true);
         setErrorMessage(e.message);
       });
   };
-
-  // const handleFilterChange = (event: any) => {
-  //   setFilters({ ...filters, [event.target.name]: event.target.value });
-  // };
+  
+  const handleFilterChange = (event: any) => {
+    setFilters({ ...filters, [event.target.name]: event.target.value });
+  };
 
   return (
     <form className="text-black flex items-center gap-4 fixed right-0 top-0">
@@ -70,7 +71,7 @@ const SearchFilter = ({
       <button type="button" className="btn text-white" onClick={handleSearch}>
         Search
       </button>
-      {/* <select
+      <select
         name="homeworld"
         value={filters.homeworld}
         onChange={handleFilterChange}
@@ -93,7 +94,7 @@ const SearchFilter = ({
         className="filters"
       >
         Options for species filter
-      </select> */}
+      </select>
     </form>
   );
 };
