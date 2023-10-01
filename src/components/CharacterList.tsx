@@ -10,7 +10,7 @@ const CharacterList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex justify-center items-center flex-wrap">
       {characters.map((character, index) => (
         <CharacterCard key={index} character={character} />
       ))}
