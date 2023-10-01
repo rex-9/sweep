@@ -13,19 +13,19 @@ const SearchFilter = () => {
   };
 
   return (
-    <form>
-      <input type="text" name="search" value={searchTerm} onChange={handleSearchChange} placeholder="Search characters..." />
-      <select name="homeworld" value={filters.homeworld} onChange={handleFilterChange}>
-        {/* Options for homeworld filter */}
-      </select>
-      <select name="film" value={filters.film} onChange={handleFilterChange}>
-        {/* Options for film filter */}
-      </select>
-      <select name="species" value={filters.species} onChange={handleFilterChange}>
-        {/* Options for species filter */}
-      </select>
-    </form>
-  );
+      <form>
+        <input type="text" name="search" value={searchTerm} onChange={handleSearchChange} placeholder="Search characters..." className="searchBar" />
+        <select name="homeworld" value={filters.homeworld} onChange={handleFilterChange} className="filters">
+          {/* Options for homeworld filter */}
+        </select>
+        <select name="film" value={filters.film} onChange={handleFilterChange} className="filters">
+          {/* Options for film filter */}
+        </select>
+        <select name="species" value={filters.species} onChange={handleFilterChange} className="filters">
+          {/* Options for species filter */}
+        </select>
+      </form>
+    );
 };
 
 export default SearchFilter;
