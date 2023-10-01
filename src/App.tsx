@@ -4,6 +4,7 @@ import SwapiService from "./services/swapiService";
 import Loading from "./components/Loading";
 import Error from "./components/Error";
 import Pagination from "./components/Pagination";
+import SearchFilter from "./components/SearchFilter";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -31,8 +32,8 @@ function App() {
     return pages;
   };
 
-  const fetchCharacters = (page: number = 1) => {
-    SwapiService.getCharacters(page)
+  const fetchCharacters = (page: number = 1, searchTerm = '', filters = {}) => {
+    SwapiService.getCharacters(page, searchTerm, filters)
       .then((data: any) => {
         generateCharacterPic(data.results);
         setPages(calcPages(data));
@@ -57,6 +58,7 @@ function App() {
   return (
     <>
       <section className="bg-gray-800 text-white font-mooli flex flex-col justify-center items-center w-screen h-screen">
+        <SearchFilter onSearchChange={fetchCharacters} />
         {isLoading && !isError ? (
           <Loading />
         ) : (
