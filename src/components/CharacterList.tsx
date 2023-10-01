@@ -1,20 +1,16 @@
-import { useState, useEffect } from "react";
-import SwapiService from "../services/swapiService";
 import CharacterCard from "./CharacterCard";
 
-const CharacterList = () => {
-  const [characters, setCharacters] = useState([]);
-
-  useEffect(() => {
-    SwapiService.getCharacters().then((data) => setCharacters(data.results));
-  }, []);
-
+const CharacterList = ({ characters }: { characters: any }) => {
   return (
-    <div className="flex justify-center items-center flex-wrap">
-      {characters.map((character, index) => (
-        <CharacterCard key={index} character={character} />
-      ))}
-    </div>
+    <>
+      <div className="text-center w-screen">
+        <div className="flex justify-center items-center gap-8 flex-wrap">
+          {characters.map((character: any) => (
+            <CharacterCard character={character} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

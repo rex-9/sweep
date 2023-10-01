@@ -1,37 +1,39 @@
-import { useEffect, useState } from "react";
-import CharacterDetails from "./CharacterDetails";
+import { useState } from "react";
+import CharacterModal from "./CharacterModal";
+import HelperService from "../services/helperService";
 
 const CharacterCard = ({ character }: { character: any }) => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
+  const closeModal = (event: any) => {
+    event.stopPropagation();
     console.log("close modal");
     setIsModalOpen(false);
     console.log(isModalOpen);
   };
 
-  useEffect(() => {
-    console.log(isModalOpen);
-  }, [isModalOpen]);
+  const id = character.species[0]?.split("/")[5] ?? "0";
 
   return (
-    <div
-      className={`character-card ${character.species}`}
-      onClick={handleOpenModal}
-    >
-      <img src={`https://picsum.photos/200/300`} alt={character.name} />
-      <h2>{character.name}</h2>
-      {isModalOpen && (
-        <CharacterDetails
-          character={character}
-          onClose={() => handleCloseModal()}
+    <>
+      <article
+        onClick={() => setIsModalOpen(true)}
+        className="w-1/4 h-36 rounded-lg pb-4"
+        style={{
+          backgroundColor: `#${HelperService.numberToColor(id)}`,
+        }}
+      >
+        <img
+          className="w-full h-[80%] object-cover rounded-t-lg bg-blue-400 mb-3"
+          src={character.image}
+          alt=""
         />
-      )}
-    </div>
+        <div>{character.name}</div>
+        {isModalOpen && (
+          <CharacterModal character={character} closeModal={closeModal} />
+        )}
+      </article>
+    </>
   );
 };
 
