@@ -51,57 +51,57 @@ function Home() {
   };
 
   return (
-    <>
-      <nav className="fixed top-0 p-4 w-[10%] left-0">
-        <ul className="flex justify-center items-center gap-4">
-          <li>
-            <Link
-              className={window.location.pathname === "/" ? `active-link` : ""}
-              to="/"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            {user ? (
-              <button onClick={logout}>Logout</button>
-            ) : (
+      <>
+        <nav className="fixed top-0 p-4 w-[10%] left-0">
+          <ul className="flex justify-center items-center gap-4">
+            <li>
               <Link
-                className={
-                  window.location.pathname === "/login" ? `active-link` : ""
-                }
-                to="/login"
+                className={window.location.pathname === "/" ? `active-link` : ""}
+                to="/"
               >
-                Login
+                Home
               </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
-      <section className="flex flex-col justify-center items-center gap-4">
-        <SearchFilter
-          setCharacters={setCharacters}
-          setPages={setPages}
-          setIsLoading={setIsLoading}
-          setIsError={setIsError}
-          setErrorMessage={setErrorMessage}
-        />
-        {isLoading && !isError ? (
-          <Loading />
-        ) : (
-          <div>
-            <CharacterList characters={characters} />
-            <Pagination
-              pages={pages}
-              currentPage={currentPage}
-              navToPage={navToPage}
-            />
-          </div>
-        )}
-        {isError && <Error message={errorMessage} />}
-      </section>
-    </>
-  );
+            </li>
+            <li>
+              {user ? (
+                <button onClick={logout}>Logout</button>
+              ) : (
+                <Link
+                  className={
+                    window.location.pathname === "/login" ? `active-link` : ""
+                  }
+                  to="/login"
+                >
+                  Login
+                </Link>
+              )}
+            </li>
+          </ul>
+        </nav>
+        <section className="flex flex-col justify-center items-center gap-4">
+          <SearchFilter
+            setCharacters={setCharacters}
+            setPages={setPages}
+            setIsLoading={setIsLoading}
+            setIsError={setIsError}
+            setErrorMessage={setErrorMessage}
+          />
+          {isLoading && !isError ? (
+            <Loading />
+          ) : (
+            <div>
+              <CharacterList characters={characters} />
+              <Pagination
+                pages={pages}
+                currentPage={currentPage}
+                navToPage={navToPage}
+              />
+            </div>
+          )}
+          {isError && <Error message={errorMessage} />}
+        </section>
+      </>
+    );
 }
 
 export default Home;

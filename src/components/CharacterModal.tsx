@@ -23,8 +23,8 @@ const CharacterModal = ({
 
   return (
     <>
-      <div className="fixed top-[20%] left-[40%] bg-purple-900 p-8 rounded-lg">
-        <h2 className="text-xl font-bold font-quicksand">{character.name}</h2>
+      <div className="fixed top-[20%] left-[40%] bg-purple-900 p-8 rounded-lg bg-gradient-to-r from-purple-900 to-purple-500">
+        <h2 className="text-xl font-bold font-quicksand text-white">{character.name}</h2>
         <div className="flex flex-row items-start my-4">
           <div className="text-start">
             <p className="label">Height:</p>
